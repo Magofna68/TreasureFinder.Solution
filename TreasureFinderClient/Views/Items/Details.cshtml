@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+@model TreasureFinder.Models.Item
+
+<h2><em>@Model.Title</em> Details:</h2>
+<div>
+  <p><em><strong>Description:</strong></em> @Model.Description</p>
+  <p><em><strong>Address:</strong></em> @Model.Address</p>
+  <p><em><strong>Condition:</strong></em> @Model.Condition</p>
+  <p><em><strong>Posted On:</strong></em> @Model.dateString()</p>
+  <p><em><strong>Url:</strong> <a href=@Model.Url>View online</a></p>
+  <p><em><strong>Dimensions:</strong></em> @Model.Dimensions</p>
+  <p><em><strong>Weight: (lbs)</strong></em> @Model.Weight</p>
+  <p><em><strong>Images:</strong></em></p>
+  @foreach (Image i in @Model.Images)
+  {
+    <img src="data:image;base64,@i.ImageString" class="rounded" width="auto" height="80" />
+  }
+</div>
+<hr>
+@Html.ActionLink("Delete", "Delete",new {id = @Model.ItemId}, new {@class="btn btn-danger"})
+@Html.ActionLink("Edit", "Edit" , new {id = @Model.ItemId}, new {@class="btn btn-warning"})
