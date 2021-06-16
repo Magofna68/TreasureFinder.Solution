@@ -5,39 +5,37 @@
 @model TreasureFinder.Models.Item
 @using TreasureFinder.Models
 
-<h2>Edit: @Model.Title</h2>
-
 @using (Html.BeginForm())
 {
-  @Html.HiddenFor(model => model.ItemId)
+  @* @Html.HiddenFor(model => model.ItemId) *@
   @* @Html.HiddenFor(model => model.UserId) *@
   <div class="form-group">
   @Html.LabelFor(model => model.Title)
-  @Html.EditorFor(model => model.Title)
+  @Html.TextBoxFor(model => model.Title)
 </div>
   <div class="form-group">
   @Html.LabelFor(model => model.Description)
-  @Html.EditorFor(model => model.Description)
+  @Html.TextBoxFor(model => model.Description)
 </div>
   <div class="form-group">
   @Html.LabelFor(model => model.Address)
-  @Html.EditorFor(model => model.Address)
+  @Html.TextBoxFor(model => model.Address)
 </div>
   <div class="form-group">
   @Html.LabelFor(model => model.Condition)
-  @Html.EditorFor(model => model.Condition)
+  @Html.TextBoxFor(model => model.Condition)
 </div>
   <div class="form-group">
   @Html.LabelFor(model => model.Url)
-  @Html.EditorFor(model => model.Url)
+  @Html.TextBoxFor(model => model.Url)
 </div>
   <div class="form-group">
   @Html.LabelFor(model => model.Dimensions)
-  @Html.EditorFor(model => model.Dimensions)
+  @Html.TextBoxFor(model => model.Dimensions)
 </div>
   <div class="form-group">
   @Html.LabelFor(model => model.Weight)
-  @Html.EditorFor(model => model.Weight)
+  @Html.TextBoxFor(model => model.Weight)
 </div>
-  <input type="submit" value="Save & Exit" class="btn btn-primary" />
+  <input type="submit" value="Save" class="btn btn-primary" />
 }

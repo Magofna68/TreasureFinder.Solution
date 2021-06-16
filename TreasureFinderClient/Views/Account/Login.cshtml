@@ -1,0 +1,19 @@
+@{
+  Layout = "_layout";
+}
+
+@using TreasureFinder.ViewModels
+
+@model LoginViewModel
+
+<h2>Login with your account</h2>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(m => m.Email)
+  @Html.TextBoxFor(m => m.Email)
+  <br>
+  @Html.LabelFor(m => m.Password)
+  @Html.TextBoxFor(m => m.Password)
+
+  <input type="submit" value="Login" class="btn btn-default" />
+}

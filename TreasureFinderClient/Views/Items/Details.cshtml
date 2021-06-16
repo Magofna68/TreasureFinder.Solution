@@ -14,11 +14,16 @@
   <p><em><strong>Dimensions:</strong></em> @Model.Dimensions</p>
   <p><em><strong>Weight: (lbs)</strong></em> @Model.Weight</p>
   <p><em><strong>Images:</strong></em></p>
-  @foreach (Image i in @Model.Images)
+  @if (@Model.Images.Count > 0)
   {
-    <img src="data:image;base64,@i.ImageString" class="rounded" width="auto" height="80" />
+    @foreach (Image i in @Model.Images)
+    {
+      <img src="data:image;base64,@i.ImageString" class="rounded" width="auto" height="80" />
+    }
   }
+
 </div>
 <hr>
 @Html.ActionLink("Delete", "Delete",new {id = @Model.ItemId}, new {@class="btn btn-danger"})
 @Html.ActionLink("Edit", "Edit" , new {id = @Model.ItemId}, new {@class="btn btn-warning"})
+@Html.ActionLink("Back to Items", "Index", new {id = @Model.ItemId}, new {@class="btn btn-danger"})

@@ -1,0 +1,22 @@
+@{
+  Layout = "_layout";
+}
+
+@using System.Security.Claims
+
+<h2> User Sign-In:</h2>
+<h4>with Identity</h4>
+<hr>
+@if (User.Identity.IsAuthenticated)
+{
+  <h2>Hello @User.Identity.Name!</h2>
+
+  <br>
+  <p>@Html.ActionLink("See all items", "Index", "Items")</p>
+  <p>@Html.ActionLink("Home", "Index", "Home")</p>
+}
+else
+{
+  <p>@Html.ActionLink("Home", "Index", "Home")</p>
+  <p>@Html.ActionLink("Log in", "Login")</p>
+}

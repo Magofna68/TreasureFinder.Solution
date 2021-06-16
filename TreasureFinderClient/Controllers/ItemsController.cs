@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TreasureFinder.Models;
-using System;
 using Newtonsoft.Json;
+using System;
+using Microsoft.AspNetCore.Http;
 
 namespace TreasureFinder.Controllers
 {
@@ -19,12 +20,28 @@ namespace TreasureFinder.Controllers
       return View(item);
     }
 
-    public IActionResult Create() => View();
-    [HttpPost]
-    public IActionResult Create(Item item)
+    public IActionResult Edit(int id)
     {
-      Item.Post(item);
-      return RedirectToAction("Index");
+      var item = Item.GetWithId(id);
+      return View(item);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Item item)
+    {
+      Item.Put(item);
+      return RedirectToAction("Details", new { id = item.ItemId });
+    }
+
+
+    public IActionResult Create() => View();
+  
+    [HttpPost]
+    public  ActionResult Create(Item item)
+    {
+      item.CreatedAt = DateTime.Now;
+      var postItem = Item.Post(item);
+      return RedirectToAction("Upload", "Images",  new {id = postItem.ItemId});
     }
     public async Task<ActionResult> Delete(int id)
     {
@@ -34,10 +51,10 @@ namespace TreasureFinder.Controllers
     }
 
     [HttpPost, ActionName("Delete")]
-      public ActionResult DeleteConfirmed(int id)
-      {
-        Item.Delete(id);
-        return RedirectToAction("Index");
-      }
+    public ActionResult DeleteConfirmed(int id)
+    {
+      Item.Delete(id);
+      return RedirectToAction("Index");
+    }
   }
 }
