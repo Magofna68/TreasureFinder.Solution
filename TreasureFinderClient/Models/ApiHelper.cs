@@ -29,7 +29,7 @@ namespace TreasureFinder.Models
     public static async Task<string> Post(string newItem)
     {
       RestClient client = new("http://localhost:4000/api");
-      RestRequest request = new($"items/create", Method.POST);
+      RestRequest request = new($"items", Method.POST);
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(newItem);
       var response = await client.ExecuteTaskAsync(request);
@@ -46,7 +46,7 @@ namespace TreasureFinder.Models
     public static async Task Put(int id, string newItem)
     {
       RestClient client = new("http://localhost:4000/api");
-      RestRequest request = new($"items/edit/{id}", Method.PUT);
+      RestRequest request = new($"items/{id}", Method.PUT);
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(newItem);
       _ = await client.ExecuteTaskAsync(request);
