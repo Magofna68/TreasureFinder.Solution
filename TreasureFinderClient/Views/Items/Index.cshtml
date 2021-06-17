@@ -1,0 +1,22 @@
+@{
+  Layout = "_layout";
+}
+
+@model List<TreasureFinder.Models.Item>
+@using TreasureFinder.Models
+
+<h1>All Items:</h1>
+
+<ul>
+  @foreach (Item i in Model)
+  {
+    <h4>@Html.ActionLink($"{@i.Title}", "Details", new {id = @i.ItemId}) </h4>
+
+    <p><em><strong>Description:</strong></em><br> @i.Description</p>
+    <p><em><strong>Condition:</strong></em><br> @i.Condition</p>
+
+    <p><em><strong>Posted On:</strong> </em><br> @i.dateString()</p>
+  }
+</ul>
+
+@Html.ActionLink("Create Item", "Create")

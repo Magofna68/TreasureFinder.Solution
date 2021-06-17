@@ -20,6 +20,7 @@ namespace TreasureFinder.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
 

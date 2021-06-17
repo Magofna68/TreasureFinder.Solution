@@ -1,0 +1,17 @@
+@model TreasureFinder.Models.Item
+@using TreasureFinder.Models
+
+<h1>Add Images</h1>
+
+<p>You will be adding images to @Model.Title</p>
+
+@if (@Model.Images.Count >= 0)
+{
+  <div class="form-group">
+  <form enctype="multipart/form-data" method="post" action="upload">
+    <input type="file" name="file" />
+    <input type="hidden" name="itemId" value="@Model.ItemId" />
+    <input type="submit" value="Add Image" />
+  </form>
+</div>
+}
