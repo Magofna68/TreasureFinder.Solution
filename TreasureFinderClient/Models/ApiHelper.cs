@@ -56,11 +56,13 @@ namespace TreasureFinder.Models
     // Images
     public static async Task<string> PostImage(int itemId, IFormFile file)
     {
+     
       var newImage = await ConvertFileToImage(itemId, file);
       string jsonFile = JsonConvert.SerializeObject(newImage);
       RestClient client = new("http://localhost:4000/api");
       RestRequest request = new($"images/{itemId}", Method.POST);
       request.AddHeader("Content-Type", "application/json");
+      Console.WriteLine($"jsonFile {jsonFile}");
       request.AddJsonBody(jsonFile);
       var response = await client.ExecuteTaskAsync(request);
       return response.Content;

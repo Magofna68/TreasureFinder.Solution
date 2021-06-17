@@ -14,7 +14,8 @@ namespace TreasureFinder.Models
 
     public static void Post(int itemId, IFormFile file)
     {
-     _ = ApiHelper.PostImage(itemId, file); 
+      Console.WriteLine($"itemId {itemId} file: {file}");
+      _ = ApiHelper.PostImage(itemId, file); 
     }
   }
 }
