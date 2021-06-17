@@ -61,7 +61,6 @@ namespace TreasureFinder.Models
     public static void Put(Item item)
     {
       string jsonItem = JsonConvert.SerializeObject(item);
-      // Console.WriteLine($"itemId {item.ItemId} jsonItem: {jsonItem}");
       _ = ApiHelper.Put(item.ItemId, jsonItem);
     }
 
