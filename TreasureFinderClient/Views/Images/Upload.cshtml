@@ -5,7 +5,7 @@
 
 <p>You will be adding images to @Model.Title</p>
 
-@if (@Model.Images.Count >= 0)
+@if (@Model.Images.Count <= 4)
 {
   <div class="form-group">
   <form enctype="multipart/form-data" method="post" action="upload">

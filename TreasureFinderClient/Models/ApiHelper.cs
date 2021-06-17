@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
 using RestSharp;
-using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace TreasureFinder.Models
 {
@@ -53,17 +54,35 @@ namespace TreasureFinder.Models
     }
 
     // Images
-    public static async Task<string> PostImage(Image image)
+    public static async Task<string> PostImage(int itemId, IFormFile file)
     {
-      Console.WriteLine(image);
-      string jsonImage = JsonConvert.SerializeObject(image);
+      var newImage = await ConvertFileToImage(itemId, file);
+      string jsonFile = JsonConvert.SerializeObject(newImage);
       RestClient client = new("http://localhost:4000/api");
-      RestRequest request = new($"images/upload", Method.POST);
+      RestRequest request = new($"images/{itemId}", Method.POST);
       request.AddHeader("Content-Type", "application/json");
-      request.AddJsonBody(jsonImage);
+      request.AddJsonBody(jsonFile);
       var response = await client.ExecuteTaskAsync(request);
-      Console.WriteLine($"content: {response.Content}");
       return response.Content;
+    }
+
+     private static async Task<Image> ConvertFileToImage(int itemId, IFormFile file)
+    {
+      if (file.Length > 0)
+        {
+          var filePath = Path.GetTempFileName();
+          using var stream = System.IO.File.Create(filePath);
+          await file.CopyToAsync(stream);
+        }
+      
+        using var ms = new MemoryStream();
+        file.CopyTo(ms);
+        var fileBytes = ms.ToArray();
+        var newImage = new Image();
+        string s = Convert.ToBase64String(fileBytes);
+        newImage.ImageString = s;
+        newImage.ItemId = itemId;
+      return newImage;
     }
   }
 }

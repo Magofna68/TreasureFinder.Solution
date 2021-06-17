@@ -3,17 +3,30 @@ using System.Threading.Tasks;
 using TreasureFinder.Models;
 using Newtonsoft.Json;
 using System;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace TreasureFinder.Controllers
 {
+  [Authorize]
   public class ItemsController : Controller
   {
+    private readonly TreasureFinderContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public ItemsController(UserManager<ApplicationUser> userManager, TreasureFinderContext db)
+    {
+      _db = db;
+      _userManager = userManager;
+    }
+    [AllowAnonymous]
     public IActionResult Index(string title, string description, string address, string startdate, string enddate, string condition, bool images)
     {
       var items = Item.GetItems(title, description, address, startdate, enddate, condition, images);
       return View(items);
     }
+    [AllowAnonymous]
     public IActionResult Details(int id)
     {
       var item = Item.GetWithId(id);
@@ -33,9 +46,10 @@ namespace TreasureFinder.Controllers
       return RedirectToAction("Details", new { id = item.ItemId });
     }
 
-
-    public IActionResult Create() => View();
   
+    public IActionResult Create() => View();
+
+    
     [HttpPost]
     public  ActionResult Create(Item item)
     {

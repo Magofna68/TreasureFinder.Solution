@@ -12,9 +12,9 @@ namespace TreasureFinder.Models
     public int ItemId { get; set; }
     //public virtual  Item Item { get; set; }
 
-    public static void Post(Image image)
+    public static void Post(int itemId, IFormFile file)
     {
-     _ = ApiHelper.PostImage(image); 
+     _ = ApiHelper.PostImage(itemId, file); 
     }
   }
 }
